@@ -16,7 +16,7 @@ export default function App() {
         await Font.loadAsync({
           'Poppins': require('./assets/fonts/Poppins-Regular.ttf'),
           'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),
-          'InriaSans-Bold': require('./assets/fonts/InriaSans-Bold.ttf'),
+          'InriaSans': require('./assets/fonts/InriaSans.ttf'),
         });
       } catch (e) {
         console.warn(e);

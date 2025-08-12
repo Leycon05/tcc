@@ -1,70 +1,64 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+// screens/RegisterScreen.js
+
+import React from 'react';
+import { View, Text, TextInput, TouchableOpacity, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import styles from '../styles/RegisterScreenStyles';
+import { Ionicons } from '@expo/vector-icons';
+import styles from '../styles/RegisterScreenStyles'; // Garanta que aponte para o novo arquivo
 
 export default function RegisterScreen({ navigation }) {
-  const [nome, setNome] = useState('');
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-
-  const handleRegister = () => {
-    if (!nome || !email || !senha) {
-      Alert.alert('Erro', 'Por favor, preencha todos os campos.');
-      return;
-    }
-    // Lógica para cadastro
-    Alert.alert('Sucesso', `Usuário "${nome}" cadastrado com sucesso.`);
-    // Navegar de volta para a tela de login
-    navigation.navigate('Login');
-  };
-
   return (
     <SafeAreaView style={styles.container}>
+      
+      {/* O resto do código do componente de registro, com os 4 campos */}
       <LinearGradient
-        colors={['#378CEE', '#17ABF8']}
+        colors={['#17ABF8', '#378CEE']}
         start={{ x: 0.28, y: 0.45 }}
         style={styles.backgroundEllipse}
       />
       
-      <Text style={styles.title}>Cadastro</Text>
-      
-      <TextInput
-        placeholder="Nome Completo"
-        style={styles.input}
-        placeholderTextColor="#919191"
-        value={nome}
-        onChangeText={setNome}
-      />
-      
-      <TextInput
-        placeholder="Email"
-        style={styles.input}
-        placeholderTextColor="#919191"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        value={email}
-        onChangeText={setEmail}
-      />
-      
-      <TextInput
-        placeholder="Senha"
-        style={styles.input}
-        placeholderTextColor="#919191"
-        secureTextEntry
-        value={senha}
-        onChangeText={setSenha}
-      />
-      
-      <TouchableOpacity style={styles.mainButton} onPress={handleRegister}>
-        <Text style={styles.mainButtonText}>CADASTRAR</Text>
-      </TouchableOpacity>
-      
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+      <View style={styles.header}>
+        <View style={styles.headerIconContainer}>
+          <Ionicons name="menu" size={30} color="white" style={{ marginLeft: 15 }} />
+        </View>
+      </View>
+
+      <View style={styles.content}>
+        <Text style={styles.title}>Cadastrar-se</Text>
+        
+        <TextInput
+          placeholder="Nome de Usuario"
+          style={styles.input}
+          placeholderTextColor="#919191"
+        />
+        <TextInput
+          placeholder="E-mail"
+          style={styles.input}
+          placeholderTextColor="#919191"
+        />
+        <TextInput
+          placeholder="Senha"
+          style={styles.input}
+          secureTextEntry
+          placeholderTextColor="#919191"
+        />
+
+        <TouchableOpacity style={styles.mainButton}>
+          <Text style={styles.mainButtonText}>CADASTRAR-SE</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.footer}>
         <Text style={styles.footerText}>Já tem uma conta?</Text>
-        <Text style={styles.linkText}>FAZER LOGIN</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.secondaryButton}
+          onPress={() => navigation.navigate('Login')}
+        >
+          <Text style={styles.secondaryButtonText}>LOGIN</Text>
+        </TouchableOpacity>
+      </View>
+
     </SafeAreaView>
   );
 }
