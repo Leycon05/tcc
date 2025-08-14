@@ -4,7 +4,6 @@ import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import StackNavigator from './navigation/StackNavigator';
 
-// Mantém a tela de splash visível enquanto as fontes são carregadas
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
@@ -16,6 +15,7 @@ export default function App() {
         await Font.loadAsync({
           'Poppins': require('./assets/fonts/Poppins-Regular.ttf'),
           'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),
+          // FONTE ADICIONADA DE VOLTA:
           'InriaSans': require('./assets/fonts/InriaSans.ttf'),
         });
       } catch (e) {
@@ -29,7 +29,7 @@ export default function App() {
   }, []);
 
   if (!fontsLoaded) {
-    return null; // Não renderiza nada enquanto as fontes não estiverem prontas
+    return null;
   }
 
   return (

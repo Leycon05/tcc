@@ -8,7 +8,6 @@ export default StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   
-  // Apenas a elipse de fundo usa posicionamento absoluto
   backgroundEllipse: {
     position: 'absolute',
     width: width * 1.8,
@@ -34,8 +33,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: '100%',
   },
- 
-
+  
   content: {
     flex: 1,
     alignItems: 'center',
@@ -44,8 +42,8 @@ export default StyleSheet.create({
   },
 
   title: {
-    fontFamily: 'InriaSans-Bold',
-    fontWeight: '700',
+    fontFamily: 'InriaSans',
+    fontWeight: 'bold',
     fontSize: height * 0.04,
     lineHeight: height * 0.05,
     color: '#3B3939',
@@ -61,14 +59,13 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
     marginBottom: height * 0.02,
     fontFamily: 'Poppins',
-    fontWeight: '600',
     fontSize: height * 0.02,
     color: '#3B3939',
   },
 
   mainButton: {
-    width: 123.33,
-    height: 46.07,
+    width: width * 0.5, 
+    height: height * 0.06,
     backgroundColor: '#17ABF8',
     borderRadius: 35,
     justifyContent: 'center',
@@ -78,7 +75,6 @@ export default StyleSheet.create({
 
   mainButtonText: {
     fontFamily: 'Poppins-Bold',
-    fontWeight: '700',
     fontSize: height * 0.02,
     color: '#FFFFFF',
     textTransform: 'uppercase',
@@ -94,7 +90,6 @@ export default StyleSheet.create({
 
   footerText: {
     fontFamily: 'Poppins',
-    fontWeight: '600',
     fontSize: height * 0.03,
     lineHeight: height * 0.045,
     color: '#FFFFFF',
@@ -113,7 +108,6 @@ export default StyleSheet.create({
 
   secondaryButtonText: {
     fontFamily: 'Poppins-Bold',
-    fontWeight: '700',
     fontSize: height * 0.018,
     color: '#FFFFFF',
     textTransform: 'uppercase',
