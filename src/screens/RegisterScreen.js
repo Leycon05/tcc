@@ -1,33 +1,28 @@
-import React, { useRef, useState, useEffect } from 'react'; // Imports necessários
+import React, { useRef, useState, useEffect } from 'react';
 import { 
   View, 
   Text, 
   TextInput, 
   TouchableOpacity, 
-  Pressable, // Usado para os eventos de hover e toque
-  Animated  // Para as animações
+  Pressable,
+  Animated 
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import styles from '../styles/RegisterScreenStyles'; // Usando os estilos de cadastro
+import styles from '../styles/RegisterScreenStyles';
 
 export default function RegisterScreen({ navigation }) {
-  // Animação de escala
+  // A sua lógica de animação dos botões continua igual
   const scaleValue = useRef(new Animated.Value(1)).current;
-  
-  // Animação de cor para o hover
   const colorAnimation = useRef(new Animated.Value(0)).current;
-
-  // Estado para controlar o hover
   const [isHovered, setIsHovered] = useState(false);
 
-  // Efeito que dispara a animação de cor quando o estado de hover muda
   useEffect(() => {
     Animated.timing(colorAnimation, {
       toValue: isHovered ? 1 : 0,
       duration: 200,
-      useNativeDriver: false, // Animação de cor não suporta o Native Driver
+      useNativeDriver: false,
     }).start();
   }, [isHovered]);
 
@@ -47,13 +42,11 @@ export default function RegisterScreen({ navigation }) {
     }).start();
   };
   
-  // Interpolação para mapear o valor da animação (0 a 1) para as cores
   const animatedBackgroundColor = colorAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: ['#17ABF8', '#118ACB'] // Cor normal e cor escura do hover
+    outputRange: ['#17ABF8', '#118ACB']
   });
 
-  // Estilo final que combina a animação de escala e a de cor
   const animatedButtonStyle = {
     transform: [{ scale: scaleValue }],
     backgroundColor: animatedBackgroundColor,
@@ -62,18 +55,20 @@ export default function RegisterScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       
-      {/* BACKGROUND ELLIPSE */}
       <LinearGradient
         colors={['#17ABF8', '#378CEE']}
         start={{ x: 0.28, y: 0.45 }}
         style={styles.backgroundEllipse}
       />
       
-      {/* HEADER */}
+      {/* ## MUDANÇA 1: HEADER COM BOTÃO DE MENU FUNCIONAL ## */}
       <View style={styles.header}>
-        <View style={styles.headerIconContainer}>
-          <Ionicons name="menu" size={30} color="white" style={{ marginLeft: 15 }} />
-        </View>
+        <TouchableOpacity 
+          style={{ padding: 5, position: 'absolute', left: 15 }} // Posição e área de toque
+          onPress={() => navigation.openDrawer()} // Ação para abrir o menu
+        >
+          <Ionicons name="menu" size={30} color="white" />
+        </TouchableOpacity>
       </View>
 
       {/* CONTEÚDO CENTRAL */}
@@ -100,14 +95,14 @@ export default function RegisterScreen({ navigation }) {
           placeholderTextColor="#919191"
         />
         
-        {/* Botão de Cadastro com as animações aplicadas */}
         <Animated.View style={[styles.mainButton, animatedButtonStyle]}>
           <Pressable
             onPressIn={onPressIn}
             onPressOut={onPressOut}
             onHoverIn={() => setIsHovered(true)}
             onHoverOut={() => setIsHovered(false)}
-            onPress={() => console.log('Botão de Cadastro Pressionado!')}
+            // ## MUDANÇA 2: NAVEGAR PARA "INÍCIO" APÓS O CADASTRO ##
+            onPress={() => navigation.navigate('Início')}
             style={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}
           >
             <Text style={styles.mainButtonText}>CADASTRAR</Text>

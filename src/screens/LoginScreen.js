@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'; // 1. Importar o useEffect
+import React, { useRef, useState, useEffect } from 'react';
 import { 
   View, 
   Text, 
@@ -13,22 +13,18 @@ import { Ionicons } from '@expo/vector-icons';
 import styles from '../styles/LoginScreenStyles';
 
 export default function LoginScreen({ navigation }) {
-  // Animação de escala (já existente)
+  // Toda a sua lógica de animação continua igual
   const scaleValue = useRef(new Animated.Value(1)).current;
-  
-  // 2. Novo valor animado para a cor
   const colorAnimation = useRef(new Animated.Value(0)).current;
-
   const [isHovered, setIsHovered] = useState(false);
 
-  // 3. Efeito para disparar a animação de cor
   useEffect(() => {
     Animated.timing(colorAnimation, {
-      toValue: isHovered ? 1 : 0, // Anima para 1 se hover, 0 se não
-      duration: 200, // Duração da animação em milissegundos
-      useNativeDriver: false, // Animação de cor não suporta o Native Driver
+      toValue: isHovered ? 1 : 0,
+      duration: 200,
+      useNativeDriver: false,
     }).start();
-  }, [isHovered]); // Roda o efeito sempre que 'isHovered' mudar
+  }, [isHovered]);
 
   const onPressIn = () => {
     Animated.spring(scaleValue, {
@@ -46,30 +42,33 @@ export default function LoginScreen({ navigation }) {
     }).start();
   };
   
-  // 4. Interpolar o valor animado para as cores reais
   const animatedBackgroundColor = colorAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: ['#17ABF8', '#118ACB'] // Cor normal e cor escura do hover
+    outputRange: ['#17ABF8', '#118ACB']
   });
 
   const animatedButtonStyle = {
     transform: [{ scale: scaleValue }],
-    backgroundColor: animatedBackgroundColor, // Aplicamos a cor animada aqui
+    backgroundColor: animatedBackgroundColor,
   };
 
   return (
     <SafeAreaView style={styles.container}>
       
-      {/* ... (o resto do código do Header e Background) ... */}
       <LinearGradient
         colors={['#17ABF8', '#378CEE']}
         start={{ x: 0.28, y: 0.45 }}
         style={styles.backgroundEllipse}
       />
+      
+      {/* ## MUDANÇA 1: HEADER COM BOTÃO FUNCIONAL ## */}
       <View style={styles.header}>
-        <View style={styles.headerIconContainer}>
-          <Ionicons name="menu" size={30} color="white" style={{ marginLeft: 15 }} />
-        </View>
+        <TouchableOpacity 
+          style={{ padding: 5, position: 'absolute', left: 15 }} // Posição e área de toque
+          onPress={() => navigation.openDrawer()} // Ação para abrir o menu
+        >
+          <Ionicons name="menu" size={30} color="white" />
+        </TouchableOpacity>
       </View>
 
       {/* CONTEÚDO CENTRAL */}
@@ -89,14 +88,14 @@ export default function LoginScreen({ navigation }) {
           placeholderTextColor="#919191"
         />
         
-        {/* 5. Aplicamos o novo estilo animado */}
         <Animated.View style={[styles.mainButton, animatedButtonStyle]}>
           <Pressable
             onPressIn={onPressIn}
             onPressOut={onPressOut}
             onHoverIn={() => setIsHovered(true)}
             onHoverOut={() => setIsHovered(false)}
-            onPress={() => console.log('Botão de Login Pressionado!')}
+            // ## MUDANÇA 2: NAVEGAR PARA "INÍCIO" APÓS O LOGIN ##
+            onPress={() => navigation.navigate('Início')}
             style={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}
           >
             <Text style={styles.mainButtonText}>LOGIN</Text>
@@ -104,7 +103,7 @@ export default function LoginScreen({ navigation }) {
         </Animated.View>
       </View>
 
-      {/* ... (o resto do código do Footer) ... */}
+      {/* RODAPÉ */}
       <View style={styles.footer}>
         <Text style={styles.footerText}>Não está cadastrado?</Text>
         <TouchableOpacity

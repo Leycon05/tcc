@@ -1,8 +1,11 @@
+import 'react-native-gesture-handler';
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import StackNavigator from './navigation/StackNavigator';
+
+// Agora importamos apenas o DrawerNavigator, que é o nosso navegador principal
+import DrawerNavigator from './navigation/DrawerNavigator';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -11,11 +14,11 @@ export default function App() {
 
   useEffect(() => {
     async function loadFonts() {
+      // A sua lógica de carregamento de fontes continua igual
       try {
         await Font.loadAsync({
           'Poppins': require('./assets/fonts/Poppins-Regular.ttf'),
           'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),
-          // FONTE ADICIONADA DE VOLTA:
           'InriaSans': require('./assets/fonts/InriaSans.ttf'),
         });
       } catch (e) {
@@ -34,7 +37,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <StackNavigator />
+      <DrawerNavigator />
     </NavigationContainer>
   );
 }
